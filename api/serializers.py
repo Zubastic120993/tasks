@@ -18,7 +18,7 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ["id", "name", "owner", "created_at", "updated_at", "tasks_count"]
 
     def get_tasks_count(self, obj):
-        return obj.task_set.count()
+        return obj.tasks.count()
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -34,19 +34,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = [
-            "id",
-            "title",
-            "description",
-            "completed",
-            "priority",
-            "category",
-            "due_date",
-            "owner",
-            "created_at",
-            "updated_at",
-            "category_id",
-        ]
+        fields = ['id', 'title', 'description', 'completed', 'priority', 'category','category_id', 'created_at', 'updated_at', 'due_date', 'owner']
 
         def create(self, validated_data):
             validated_data["owner"] = self.context["request"].user
